@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login/Registration</title>
+</head>
+<body>
+    <h1>Welcome to the Dojo Activity Center</h1>
+    @model Activities.Models.UserViewModel
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+        <table>
+            <tr>
+                <td><label asp-for="Email"></label></td>
+                <td><input asp-for="Email"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><label asp-for="Password"></label></td>
+                <td><input type="password" asp-for="Password"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Login"></td>
+                <td>@ViewBag.error</td>
+            </tr>
+        </table>
+    </form>
+    <h2>Registration</h2>
+    <form asp-controller="Login" asp-action="Register" method="Post">
+        <table>
+            <tr>
+                <td><label asp-for="FirstName"></label></td>
+                <td><input asp-for="FirstName"></td>
+                <td><label asp-for="Password"></label></td>
+                <td><input type="password" asp-for="Password"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><span asp-validation-for="FirstName"></span></td>
+                <td></td>
+                <td><span asp-validation-for="Password"></span></td>
+            </tr>
+            <tr>
+                <td><label asp-for="LastName"></label></td>
+                <td><input asp-for="LastName"></td>
+                <td><label asp-for="PasswordConfirmation"></label></td>
+                <td><input type="password" asp-for="PasswordConfirmation"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><span asp-validation-for="LastName"></span></td>
+                <td></td>
+                <td><span asp-validation-for="PasswordConfirmation"></span></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Email"></label></td>
+                <td><input asp-for="Email"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><span asp-validation-for="Email"></span></td>
+                <td></td>
+                <td><input type="submit" value="Register"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

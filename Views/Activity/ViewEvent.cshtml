@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Activity</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div>
+        <p id="Header">Dojo Activity Center</p>
+        <a  id="NameOrHome" href="/Home">Home</a>
+        <a id="LogOff" href="/">Log Off</a>
+        <hr>
+    </div>
+    <div>
+        <h2>@ViewBag.viewEvent.Title</h2>
+        @if(ViewBag.viewEvent.CreatedByUserId == ViewBag.activeId)
+                    {
+                        <a href="/remove/Event/@ViewBag.viewEvent.EventId"><button>Delete</button></a>
+                    }
+                    else
+                    {
+                        bool attending = false;
+                        @foreach(var user in ViewBag.viewEvent.Attendees)
+                        {
+                            @if(user.AttendingUserId == ViewBag.activeId)
+                            {
+                                attending = true;
+                                break;
+                            }
+                        }
+                        if(attending)
+                        {
+                            <a href="/remove/User/@ViewBag.viewEvent.EventId"><button>Leave</button></a>
+                        }
+                        else
+                        {
+                            <a href="/add/User/@ViewBag.viewEvent.EventId"><button>Join</button></a>
+                        }
+                    }
+        <h4>Event Coordinator: @ViewBag.viewEvent.CreatedBy.FirstName</h4>
+        <h4>Description</h4>
+        <p>@ViewBag.viewEvent.Description</p>
+        <h4>Participants:</h4>
+        <ul>
+            @foreach(var user in ViewBag.viewEvent.Attendees)
+            {
+                <li>@user.User.FirstName</li>
+            }
+        </ul>
+    </div>
+</body>
+</html>

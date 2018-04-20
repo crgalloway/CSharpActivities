@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div>
+        <p id="Header">Dojo Activity Center</p>
+        <p id="NameOrHome">Welcome @ViewBag.activeUser.FirstName!</p>
+        <a id="LogOff" href="/">Log Off</a>
+        <hr>
+    </div>
+    <table>
+        <thead>
+            <th id="Head">Activity</th>
+            <th id="Head">Date and Time</th>
+            <th id="Head">Duration</th>
+            <th id="Head">Event Coordinator</th>
+            <th id="Head">Number of Participants</th>
+            <th id="Head">Actions</th>
+        </thead>
+        <tbody>
+            @foreach(var activity in ViewBag.allEvents)
+            {
+                <tr>
+                    <td><a href="/Event/@activity.EventId">@activity.Title</a></td>
+                    <td>@activity.StartTime.ToString("M/d @ H:mmtt")</td>
+                    @if(activity.DurationInMinutes%1440 == 0 )
+                    {
+                        <td>@(activity.DurationInMinutes/1440) Days</td>
+                    }
+                    else if(activity.DurationInMinutes%60 == 0 )
+                    {
+                        <td>@(activity.DurationInMinutes/60) Hours</td>
+                    }
+                    else
+                    {
+                        <td>@activity.DurationInMinutes Minutes</td>
+                    }
+                    <td>@activity.CreatedBy.FirstName</td>
+                    <td>@activity.Attendees.Count</td>
+                    <td>@if(activity.CreatedByUserId == ViewBag.activeUser.UserId)
+                    {
+                        <a href="/remove/Event/@activity.EventId">Delete</a>
+                    }
+                    else
+                    {
+                        bool attending = false;
+                        @foreach(var user in activity.Attendees)
+                        {
+                            @if(user.AttendingUserId == ViewBag.activeUser.UserId)
+                            {
+                                attending = true;
+                                break;
+                            }
+                        }
+                        if(attending)
+                        {
+                            <a href="/remove/User/@activity.EventId">Leave</a>
+                        }
+                        else
+                        {
+                            <a href="/add/User/@activity.EventId">Join</a>
+                        }
+                    }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/New"><button>Add a New Activity!</button></a>
+</body>
+</html>

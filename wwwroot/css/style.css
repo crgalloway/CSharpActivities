@@ -1,0 +1,39 @@
+#Header{
+    font-size: 48px;
+    display: inline-block;
+}
+#NameOrHome{
+    display: inline-block;
+    margin-left: 40%;
+}
+#LogOff{
+    display: inline-block;
+    margin-left: 5%;
+}
+#Welcome{
+    text-align: center;
+}
+table{
+    width: 95%;
+}
+#Head{
+    background: rgb(151, 151, 151)
+}
+tr:nth-child(odd){
+    background: #CCC
+};
+tr:nth-child(even){
+    background: #FFF
+}
+#FormArea1{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+#FormArea2{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10%;
+    margin-right: 10%;
+}
